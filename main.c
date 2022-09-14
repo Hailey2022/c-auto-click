@@ -47,7 +47,7 @@ INT FlashConfig() {
     DWORD dwType = REG_DWORD;
     DWORD dwSize = sizeof(INT);
 
-    if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, TEXT("SOFTWARE\\AutoClick"), 0, KEY_READ | KEY_WOW64_64KEY, &hKey) ==
+    if (RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("SOFTWARE\\AutoClick"), 0, KEY_READ | KEY_WOW64_64KEY, &hKey) ==
         ERROR_SUCCESS) {
 
         RegQueryValueEx(hKey, TEXT("LeftOrRight"), NULL, &dwType, (LPBYTE) (&LeftOrRight), &dwSize);
@@ -74,7 +74,7 @@ INT SaveConfig() {
     DWORD dwSize = sizeof(INT);
     DWORD dwDisposition = 0;
 
-    if (RegCreateKeyEx(HKEY_LOCAL_MACHINE, TEXT("SOFTWARE\\AutoClick"), 0, NULL, REG_OPTION_NON_VOLATILE,
+    if (RegCreateKeyEx(HKEY_CURRENT_USER, TEXT("SOFTWARE\\AutoClick"), 0, NULL, REG_OPTION_NON_VOLATILE,
                        KEY_ALL_ACCESS | KEY_WOW64_64KEY, NULL, &hKey, &dwDisposition) == ERROR_SUCCESS) {
         RegSetValueEx(hKey, TEXT("LeftOrRight"), 0, dwType, (LPCBYTE) (&LeftOrRight), dwSize);
         RegSetValueEx(hKey, TEXT("Func"), 0, dwType, (LPCBYTE) (&Func), dwSize);
